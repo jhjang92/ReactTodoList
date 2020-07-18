@@ -13,6 +13,15 @@ const TodoTemplateMain = styled.main`
 
   display: flex;
   flex-direction: column;
+
+  > header {
+    width: 100%;
+    text-align: center;
+    h2 {
+      span {
+      }
+    }
+  }
 `;
 
 function TodoTemplate({ children }) {
@@ -20,9 +29,9 @@ function TodoTemplate({ children }) {
     <TodoTemplateMain>
       {/* js내장함수 현재시간 추출 후 대체하기. */}
       <header>
-        <h2>2020년 07월 16일</h2>
-        <strong>목요일</strong>
-        <p>남은 할 일 2 개 입니다.</p>
+        <h2>
+          2020년 07월 16일 (<span>목</span>)
+        </h2>
       </header>
       {children}
     </TodoTemplateMain>

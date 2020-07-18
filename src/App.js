@@ -9,6 +9,10 @@ const GlobalStyle = createGlobalStyle`
   body{
     background: #e9ecef;
   }
+  ul, ol {list-style:none;}
+  ul,ol,li,button{margin:0; padding:0;}
+  button {border:none; background:none; outline-style:none; cursor:pointer;}
+
 `;
 
 function App() {
