@@ -5,6 +5,8 @@ import TodoItem from "./TodoItem";
 const TodoListArticle = styled.article`
   margin-left: 15px;
   text-align: center;
+  flex: 1;
+  overflow-y: auto;
   h3 {
     margin: 0;
     padding-top: 10px;
@@ -28,6 +30,12 @@ function TodoList() {
         <TodoItem id={1} text={"기술면접 풀이하기"} />
         <TodoItem id={2} text={"알고리즘 풀이하기"} />
         <TodoItem id={3} text={"React 자습하기"} done={true} />
+        <TodoItem id={4} text={"React 자습하기"} done={true} />
+        <TodoItem id={5} text={"React 자습하기"} done={true} />
+        <TodoItem id={6} text={"React 자습하기"} done={true} />
+        <TodoItem id={7} text={"React 자습하기"} done={true} />
+        <TodoItem id={8} text={"React 자습하기"} done={true} />
+        <TodoItem id={9} text={"React 자습하기"} done={true} />
       </ul>
     </TodoListArticle>
   );

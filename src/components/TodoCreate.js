@@ -1,11 +1,22 @@
 import React from "react";
 import styled from "styled-components";
+import { MdAdd } from "react-icons/md";
 
 // 추가&수정 버튼 , 할일추가버튼 CSS 작업 해야합니다.
+const TodoCreateBox = styled.div`
+  overflow: hidden;
+`;
 const TodoCreateInsertUpdateForm = styled.form`
-  margin-left: 15px;
+  padding: 10px 10px 50px 15px;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  background: #dee2e6;
+  border-radius: 10px;
+  transition: 1s ease-in-out;
+  /* 
+    transform: translateY(100%);
+   */
 `;
 const TodoCreateInputBox = styled.div`
   flex: 1;
@@ -13,16 +24,56 @@ const TodoCreateInputBox = styled.div`
   flex-direction: column;
 `;
 const TodoCreateTitleInput = styled.input`
-  width: 90%;
-  height: 30px;
+  height: 50px;
+  box-sizing: border-box;
 `;
-const TodoCreateContentInput = styled.input`
-  width: 90%;
-  height: 30px;
+const TodoCreateContentInput = styled.textarea`
+  margin-top: 10px;
+  height: 100px;
+  box-sizing: border-box;
 `;
+const TodoCreateAddUdateButton = styled.button`
+  width: 100px;
+  height: 70px;
+  margin: 0 10px;
+  border: 1px solid black;
+  border-radius: 7px;
+  box-sizing: border-box;
+  background: #1f9bc4;
+  color: white;
+  &:hover {
+    background: #2567ad;
+  }
+  &:active {
+    background: #1f44c4;
+  }
+`;
+const TodoCreateButton = styled.button`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 70px;
+  height: 70px;
+  font-size: 60px;
+  border-radius: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background: #38d9a9;
+  &:hover {
+    background: #63e6be;
+  }
+  &:active {
+    background: #20c997;
+  }
+`;
+
 function TodoCreate() {
   return (
-    <div>
+    <TodoCreateBox>
       {/* insert , Update 공용으로 쓸 수 있게 변경하기. */}
       <TodoCreateInsertUpdateForm>
         <TodoCreateInputBox>
@@ -32,10 +83,12 @@ function TodoCreate() {
             placeholder="내용을 입력해주세요"
           />
         </TodoCreateInputBox>
-        <button type="button">추가&수정</button>
+        <TodoCreateAddUdateButton type="button">ADD</TodoCreateAddUdateButton>
       </TodoCreateInsertUpdateForm>
-      <button type="button">할일 추가하기</button>
-    </div>
+      <TodoCreateButton type="button">
+        <MdAdd />
+      </TodoCreateButton>
+    </TodoCreateBox>
   );
 }
 
