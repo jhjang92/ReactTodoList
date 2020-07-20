@@ -25,12 +25,24 @@ const TodoTemplateMain = styled.main`
 `;
 
 function TodoTemplate({ children }) {
+  const today = new Date();
+  const dateString = today.toLocaleDateString("ko-KR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const dayName = today
+    .toLocaleDateString("ko-KR", {
+      weekday: "long",
+    })
+    .substring(0, 1);
+
   return (
     <TodoTemplateMain>
       {/* js내장함수 현재시간 추출 후 대체하기. */}
       <header>
         <h2>
-          2020년 07월 16일 (<span>목</span>)
+          {dateString} (<span>{dayName}</span>)
         </h2>
       </header>
       {children}

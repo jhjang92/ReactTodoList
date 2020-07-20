@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 import TodoHead from "./components/TodoHead";
 import TodoCreate from "./components/TodoCreate";
 import TodoList from "./components/TodoList";
+import { TodoProvider } from "./components/TodoContext";
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -17,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   return (
-    <>
+    <TodoProvider>
       {/* 부모인 body 접근 후 css 적용 */}
       <GlobalStyle />
       {/* logo, nav 등 */}
@@ -27,7 +28,7 @@ function App() {
         <TodoList></TodoList>
         <TodoCreate />
       </TodoTemplate>
-    </>
+    </TodoProvider>
   );
 }
 

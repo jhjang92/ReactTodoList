@@ -1,12 +1,18 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import TodoItem from "./TodoItem";
-
+import { useTodoOpenState } from "./TodoContext";
 const TodoListArticle = styled.article`
   margin-left: 15px;
   text-align: center;
   flex: 1;
-  overflow-y: auto;
+  transition: 1.2s;
+  ${(props) =>
+    props.open &&
+    css`
+      overflow-y: auto;
+    `}
+
   h3 {
     margin: 0;
     padding-top: 10px;
@@ -19,8 +25,9 @@ const TodoListArticle = styled.article`
 `;
 
 function TodoList() {
+  const [open, setOpen] = useTodoOpenState();
   return (
-    <TodoListArticle>
+    <TodoListArticle open={open}>
       <h3>할일 목록</h3>
       <p>
         남은 할 일 <strong>2</strong>개 입니다.
