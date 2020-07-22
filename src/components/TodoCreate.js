@@ -5,6 +5,9 @@ import {
   useTodoOpenState,
   useTodoDispatch,
   useTodoNextId,
+  useTodoType,
+  useTodoInputs,
+  useTodoSelected,
 } from "./TodoContext";
 
 // 추가&수정 버튼 , 할일추가버튼 CSS 작업 해야합니다.
@@ -95,13 +98,13 @@ const TodoCreateButton = styled.button`
 function TodoCreate() {
   console.log("TodoCreate");
   const [open, setOpen] = useTodoOpenState();
+  const [type, setType] = useTodoType();
+  const [inputs, setInputs] = useTodoInputs();
   const nextId = useTodoNextId();
   const dispatch = useTodoDispatch();
+  const [submitName, setSubmitName] = useState("Add");
+  const [selected, setSelected] = useTodoSelected();
 
-  const [inputs, setInputs] = useState({
-    title: "",
-    content: "",
-  });
   const { title, content } = inputs;
 
   const onChange = (e) => {
@@ -114,25 +117,40 @@ function TodoCreate() {
   };
   const onToggle = () => {
     setOpen(!open);
+    setType("CREATE");
   };
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(title);
-    console.log(content);
-    dispatch({
-      type: "CREATE",
-      todo: {
-        id: nextId.current,
-        title: title,
-        done: false,
-      },
-    });
+    if (type === "CREATE") {
+      setSubmitName("Add");
+      dispatch({
+        type: type,
+        todo: {
+          id: nextId.current,
+          title: title,
+          content: content,
+          done: false,
+        },
+      });
+      nextId.current += 1;
+    } else if (type === "UPDATE") {
+      dispatch({
+        type: type,
+        todo: {
+          id: selected,
+          title: title,
+          content: content,
+        },
+      });
+    }
+
     setInputs({
       title: "",
       content: "",
     });
     setOpen(false);
-    nextId.current += 1;
+    setType("");
   };
   return (
     <TodoCreateBox>
@@ -153,10 +171,12 @@ function TodoCreate() {
             onChange={onChange}
           />
         </TodoCreateInputBox>
-        <TodoCreateAddUdateButton type="submit">ADD</TodoCreateAddUdateButton>
+        <TodoCreateAddUdateButton type="submit">
+          {submitName}
+        </TodoCreateAddUdateButton>
       </TodoCreateInsertUpdateForm>
 
-      <TodoCreateButton type="button" onClick={onToggle} open={open}>
+      <TodoCreateButton name="Add" type="button" onClick={onToggle} open={open}>
         <MdAdd />
       </TodoCreateButton>
     </TodoCreateBox>

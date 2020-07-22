@@ -3,7 +3,13 @@ import styled, { css } from "styled-components";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
-import { useTodoDispatch } from "./TodoContext";
+import {
+  useTodoDispatch,
+  useTodoType,
+  useTodoOpenState,
+  useTodoInputs,
+  useTodoSelected,
+} from "./TodoContext";
 
 const TodoItemStyleBox = styled.div`
   display: flex;
@@ -75,9 +81,14 @@ const TodoItemList = styled.li`
     }
   }
 `;
-function TodoItem({ id, done, title }) {
+function TodoItem({ id, done, title, content }) {
   // styled 및 체크,수정,삭제 아이콘 추가하기.
   const dispatch = useTodoDispatch();
+  const [open, setOpen] = useTodoOpenState();
+  const [type, setType] = useTodoType();
+  const [inputs, setInputs] = useTodoInputs();
+  const [selected, setSelected] = useTodoSelected();
+
   const onToggle = () =>
     dispatch({
       type: "TOGGLE",
@@ -88,6 +99,21 @@ function TodoItem({ id, done, title }) {
       type: "REMOVE",
       id,
     });
+  const onUpdate = (e) => {
+    setOpen(!open);
+    setType("UPDATE");
+    setSelected(id);
+    setTimeout(() => {
+      if (open === true) {
+        setOpen(open);
+      }
+    }, 400);
+    setInputs({
+      ...inputs,
+      title: title,
+      content: content,
+    });
+  };
   return (
     <TodoItemList>
       <TodoItemStyleBox>
@@ -103,7 +129,7 @@ function TodoItem({ id, done, title }) {
 
       {/* update, Remove Button */}
       <TodoItemButtonBox>
-        <TodoItemUpdate>
+        <TodoItemUpdate onClick={onUpdate}>
           <AiFillEdit />
         </TodoItemUpdate>
         <TodoItemRemove onClick={onRemove}>
