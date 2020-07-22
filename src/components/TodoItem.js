@@ -1,8 +1,9 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { MdDone } from "react-icons/md";
+import { useTodoDispatch } from "./TodoContext";
 
 const TodoItemStyleBox = styled.div`
   display: flex;
@@ -24,11 +25,24 @@ const TodoItemCheckBox = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    ${(props) =>
+      props.done &&
+      css`
+        border: 1px solid #38d9a9;
+        color: #38d9a9;
+      `}
   }
 `;
 const TodoItemText = styled.button`
   margin-left: 15px;
   font-size: 20px;
+  color: #495057;
+
+  ${(props) =>
+    props.done &&
+    css`
+      color: #ced4da;
+    `}
 `;
 const TodoItemButtonBox = styled.div`
   opacity: 0;
@@ -61,20 +75,30 @@ const TodoItemList = styled.li`
     }
   }
 `;
-function TodoItem({ id, done, text }) {
+function TodoItem({ id, done, title }) {
   // styled 및 체크,수정,삭제 아이콘 추가하기.
-
+  const dispatch = useTodoDispatch();
+  const onToggle = () =>
+    dispatch({
+      type: "TOGGLE",
+      id,
+    });
+  const onRemove = () =>
+    dispatch({
+      type: "REMOVE",
+      id,
+    });
   return (
     <TodoItemList>
       <TodoItemStyleBox>
         {/* checkBox를 꾸미기위해 Label 사용 */}
-        <TodoItemCheckBox>
+        <TodoItemCheckBox done={done}>
           <input type="checkbox" id={`todo--item-checkbox${id}`} />
-          <label htmlFor={`todo--item-checkbox${id}`}>
+          <label htmlFor={`todo--item-checkbox${id}`} onClick={onToggle}>
             {done && <MdDone />}
           </label>
         </TodoItemCheckBox>
-        <TodoItemText>{text}</TodoItemText>
+        <TodoItemText done={done}>{title}</TodoItemText>
       </TodoItemStyleBox>
 
       {/* update, Remove Button */}
@@ -82,7 +106,7 @@ function TodoItem({ id, done, text }) {
         <TodoItemUpdate>
           <AiFillEdit />
         </TodoItemUpdate>
-        <TodoItemRemove>
+        <TodoItemRemove onClick={onRemove}>
           <RiDeleteBin6Line />
         </TodoItemRemove>
       </TodoItemButtonBox>

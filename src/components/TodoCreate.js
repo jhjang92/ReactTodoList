@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
-import { useTodoOpenState } from "./TodoContext";
+import {
+  useTodoOpenState,
+  useTodoDispatch,
+  useTodoNextId,
+} from "./TodoContext";
 
 // 추가&수정 버튼 , 할일추가버튼 CSS 작업 해야합니다.
 const TodoCreateBox = styled.div`
@@ -89,21 +93,67 @@ const TodoCreateButton = styled.button`
 `;
 
 function TodoCreate() {
+  console.log("TodoCreate");
   const [open, setOpen] = useTodoOpenState();
+  const nextId = useTodoNextId();
+  const dispatch = useTodoDispatch();
+
+  const [inputs, setInputs] = useState({
+    title: "",
+    content: "",
+  });
+  const { title, content } = inputs;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
   const onToggle = () => {
     setOpen(!open);
   };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(title);
+    console.log(content);
+    dispatch({
+      type: "CREATE",
+      todo: {
+        id: nextId.current,
+        title: title,
+        done: false,
+      },
+    });
+    setInputs({
+      title: "",
+      content: "",
+    });
+    setOpen(false);
+    nextId.current += 1;
+  };
   return (
     <TodoCreateBox>
-      <TodoCreateInsertUpdateForm open={open}>
+      <TodoCreateInsertUpdateForm open={open} onSubmit={onSubmit}>
         <TodoCreateInputBox>
-          <TodoCreateTitleInput type="text" placeholder="제목을 입력해주세요" />
+          <TodoCreateTitleInput
+            type="text"
+            placeholder="제목을 입력해주세요"
+            name={"title"}
+            value={title}
+            onChange={onChange}
+          />
           <TodoCreateContentInput
             type="text"
             placeholder="내용을 입력해주세요"
+            name={"content"}
+            value={content}
+            onChange={onChange}
           />
         </TodoCreateInputBox>
-        <TodoCreateAddUdateButton type="button">ADD</TodoCreateAddUdateButton>
+        <TodoCreateAddUdateButton type="submit">ADD</TodoCreateAddUdateButton>
       </TodoCreateInsertUpdateForm>
 
       <TodoCreateButton type="button" onClick={onToggle} open={open}>
@@ -113,4 +163,4 @@ function TodoCreate() {
   );
 }
 
-export default TodoCreate;
+export default React.memo(TodoCreate);
