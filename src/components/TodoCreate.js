@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
 import { MdAdd } from "react-icons/md";
+import { useTodoOpenState } from "./TodoContext";
 
 // 추가&수정 버튼 , 할일추가버튼 CSS 작업 해야합니다.
 const TodoCreateBox = styled.div`
@@ -13,10 +14,13 @@ const TodoCreateInsertUpdateForm = styled.form`
   align-items: center;
   background: #dee2e6;
   border-radius: 10px;
-  transition: 1s ease-in-out;
-  /* 
-    transform: translateY(100%);
-   */
+  transition: 0.6s ease-in-out;
+  transform: translateY(100%);
+  ${(props) =>
+    props.open &&
+    css`
+      transform: translateY(0%);
+    `}
 `;
 const TodoCreateInputBox = styled.div`
   flex: 1;
@@ -69,13 +73,29 @@ const TodoCreateButton = styled.button`
   &:active {
     background: #20c997;
   }
+  transition: 0.2s;
+  ${(props) =>
+    props.open &&
+    css`
+      background: #ff6b6b;
+      &:hover {
+        background: #ff8787;
+      }
+      &:active {
+        background: #fa5252;
+      }
+      transform: translate(-50%, 50%) rotate(45deg);
+    `}
 `;
 
 function TodoCreate() {
+  const [open, setOpen] = useTodoOpenState();
+  const onToggle = () => {
+    setOpen(!open);
+  };
   return (
     <TodoCreateBox>
-      {/* insert , Update 공용으로 쓸 수 있게 변경하기. */}
-      <TodoCreateInsertUpdateForm>
+      <TodoCreateInsertUpdateForm open={open}>
         <TodoCreateInputBox>
           <TodoCreateTitleInput type="text" placeholder="제목을 입력해주세요" />
           <TodoCreateContentInput
@@ -85,7 +105,8 @@ function TodoCreate() {
         </TodoCreateInputBox>
         <TodoCreateAddUdateButton type="button">ADD</TodoCreateAddUdateButton>
       </TodoCreateInsertUpdateForm>
-      <TodoCreateButton type="button">
+
+      <TodoCreateButton type="button" onClick={onToggle} open={open}>
         <MdAdd />
       </TodoCreateButton>
     </TodoCreateBox>
