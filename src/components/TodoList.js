@@ -5,26 +5,23 @@ import { useTodoOpenState, useTodoState } from "./TodoContext";
 
 const fadeIn = keyframes`
 from {
-  overflow-y: unset;
 }
 to {
-  overflow-y: auto;
 }
 `;
 const fadeOut = keyframes`
 from {
-  overflow-y: auto;
 }
 to {
-  overflow-y: unset;
 }
 `;
 const TodoListArticle = styled.article`
   margin-left: 15px;
   text-align: center;
-  flex: 1;
+  height: 100%;
   transition: 1.2s;
-
+  overflow: auto;
+  flex: 1;
   animation-duration: 0.7s;
   animation-timing-function: ease-out;
   animation-name: ${fadeOut};
@@ -67,6 +64,7 @@ function TodoList() {
             title={todo.title}
             content={todo.content}
             done={todo.done}
+            accordion={todo.accordion}
           />
         ))}
       </ul>

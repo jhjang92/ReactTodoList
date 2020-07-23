@@ -10,56 +10,65 @@ const initialTodos = [
   {
     id: 1,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "1",
     done: true,
+    accordion: false,
   },
   {
     id: 2,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "2",
     done: true,
+    accordion: false,
   },
   {
     id: 3,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "3",
     done: false,
+    accordion: false,
   },
   {
     id: 4,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "4",
     done: false,
+    accordion: false,
   },
   {
     id: 5,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "5",
     done: false,
+    accordion: false,
   },
   {
     id: 6,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "6",
     done: false,
+    accordion: false,
   },
   {
     id: 7,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "7",
     done: false,
+    accordion: false,
   },
   {
     id: 8,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "8",
     done: false,
+    accordion: false,
   },
   {
     id: 9,
     title: "프로젝트 생성하기",
-    content: "",
+    content: "9",
     done: false,
+    accordion: false,
   },
 ];
 
@@ -83,8 +92,10 @@ function todoReducer(state, action) {
       );
     case "REMOVE":
       return state.filter((todo) => todo.id !== action.id);
-    case "EDIT":
-      return;
+    case "ACCORDION":
+      return state.map((todo) =>
+        todo.id === action.id ? { ...todo, accordion: !todo.accordion } : todo
+      );
     default:
       throw new Error(`Unhadled action type: ${action.type}`);
   }

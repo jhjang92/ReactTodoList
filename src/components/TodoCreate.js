@@ -118,6 +118,10 @@ function TodoCreate() {
   const onToggle = () => {
     setOpen(!open);
     setType("CREATE");
+    setInputs({
+      title: "",
+      content: "",
+    });
   };
 
   const onSubmit = (e) => {

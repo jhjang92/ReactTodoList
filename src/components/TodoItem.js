@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled, { css } from "styled-components";
 import { AiFillEdit } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -49,6 +49,10 @@ const TodoItemText = styled.button`
     css`
       color: #ced4da;
     `}
+
+  &:active {
+    color: #ced4da;
+  }
 `;
 const TodoItemButtonBox = styled.div`
   opacity: 0;
@@ -73,16 +77,58 @@ const TodoItemRemove = styled.button`
 const TodoItemList = styled.li`
   padding: 10px 0;
   align-items: center;
-  display: flex;
-  justify-content: space-between;
+
   &:hover {
     ${TodoItemButtonBox} {
       opacity: 1;
     }
   }
 `;
-function TodoItem({ id, done, title, content }) {
-  // styled 및 체크,수정,삭제 아이콘 추가하기.
+
+const TodoItemTitleBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  &::after {
+    content: "";
+    width: 0%;
+    height: 1px;
+    background: red;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+    transition: 0.6s;
+  }
+  &.remove {
+    &::after {
+      width: 100%;
+    }
+  }
+`;
+
+const TodoItemContentBox = styled.p`
+  overflow: hidden;
+  transition: 0.7s;
+  margin: 0 80px 0 50px;
+  text-align: left;
+  word-break: break-all;
+  max-height: 0px;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  ${(props) =>
+    props.accordion &&
+    css`
+      max-height: 150px;
+      background: rgba(0, 0, 0, 0.1);
+      color: #495057;
+    `}
+`;
+function TodoItem({ id, done, title, content, accordion }) {
   const dispatch = useTodoDispatch();
   const [open, setOpen] = useTodoOpenState();
   const [type, setType] = useTodoType();
@@ -94,11 +140,22 @@ function TodoItem({ id, done, title, content }) {
       type: "TOGGLE",
       id,
     });
-  const onRemove = () =>
-    dispatch({
-      type: "REMOVE",
-      id,
-    });
+  const onRemove = (e) => {
+    const itemSelect = e.currentTarget.parentNode.parentNode;
+    itemSelect.classList.add("remove");
+    console.log(itemSelect);
+    setTimeout(() => {
+      dispatch({
+        type: "REMOVE",
+        id,
+      });
+    }, 700);
+
+    if (open) {
+      setOpen(!open);
+    }
+  };
+
   const onUpdate = (e) => {
     setOpen(!open);
     setType("UPDATE");
@@ -114,30 +171,43 @@ function TodoItem({ id, done, title, content }) {
       content: content,
     });
   };
+  const onAccordion = (e) => {
+    dispatch({
+      type: "ACCORDION",
+      id,
+    });
+  };
   return (
     <TodoItemList>
-      <TodoItemStyleBox>
-        {/* checkBox를 꾸미기위해 Label 사용 */}
-        <TodoItemCheckBox done={done}>
-          <input type="checkbox" id={`todo--item-checkbox${id}`} />
-          <label htmlFor={`todo--item-checkbox${id}`} onClick={onToggle}>
-            {done && <MdDone />}
-          </label>
-        </TodoItemCheckBox>
-        <TodoItemText done={done}>{title}</TodoItemText>
-      </TodoItemStyleBox>
+      <TodoItemTitleBox>
+        <TodoItemStyleBox>
+          {/* checkBox를 꾸미기위해 Label 사용 */}
+          <TodoItemCheckBox done={done}>
+            <input type="checkbox" id={`todo--item-checkbox${id}`} />
+            <label htmlFor={`todo--item-checkbox${id}`} onClick={onToggle}>
+              {done && <MdDone />}
+            </label>
+          </TodoItemCheckBox>
+          <TodoItemText done={done} onClick={onAccordion}>
+            {title}
+          </TodoItemText>
+        </TodoItemStyleBox>
 
-      {/* update, Remove Button */}
-      <TodoItemButtonBox>
-        <TodoItemUpdate onClick={onUpdate}>
-          <AiFillEdit />
-        </TodoItemUpdate>
-        <TodoItemRemove onClick={onRemove}>
-          <RiDeleteBin6Line />
-        </TodoItemRemove>
-      </TodoItemButtonBox>
+        {/* update, Remove Button */}
+        <TodoItemButtonBox>
+          <TodoItemUpdate onClick={onUpdate}>
+            <AiFillEdit />
+          </TodoItemUpdate>
+          <TodoItemRemove onClick={onRemove}>
+            <RiDeleteBin6Line />
+          </TodoItemRemove>
+        </TodoItemButtonBox>
+      </TodoItemTitleBox>
+      <TodoItemContentBox accordion={accordion} autoFocus>
+        {content}
+      </TodoItemContentBox>
     </TodoItemList>
   );
 }
 
-export default TodoItem;
+export default React.memo(TodoItem);
