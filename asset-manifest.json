@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/YOURREPNAME/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/YOURREPNAME/static/js/main.aa27c520.chunk.js",
-    "main.js.map": "/YOURREPNAME/static/js/main.aa27c520.chunk.js.map",
-    "runtime-main.js": "/YOURREPNAME/static/js/runtime-main.8ae05d82.js",
-    "runtime-main.js.map": "/YOURREPNAME/static/js/runtime-main.8ae05d82.js.map",
-    "static/js/2.29de886d.chunk.js": "/YOURREPNAME/static/js/2.29de886d.chunk.js",
-    "static/js/2.29de886d.chunk.js.map": "/YOURREPNAME/static/js/2.29de886d.chunk.js.map",
-    "index.html": "/YOURREPNAME/index.html",
-    "precache-manifest.b4e636e755dda108cb89d8bd862ea3b1.js": "/YOURREPNAME/precache-manifest.b4e636e755dda108cb89d8bd862ea3b1.js",
-    "service-worker.js": "/YOURREPNAME/service-worker.js",
-    "static/css/main.5ecd60fb.chunk.css.map": "/YOURREPNAME/static/css/main.5ecd60fb.chunk.css.map",
-    "static/js/2.29de886d.chunk.js.LICENSE.txt": "/YOURREPNAME/static/js/2.29de886d.chunk.js.LICENSE.txt"
+    "main.css": "//jhjang92.github.io/ReactTodoList/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "//jhjang92.github.io/ReactTodoList/static/js/main.95c81b45.chunk.js",
+    "main.js.map": "//jhjang92.github.io/ReactTodoList/static/js/main.95c81b45.chunk.js.map",
+    "runtime-main.js": "//jhjang92.github.io/ReactTodoList/static/js/runtime-main.ae8c98d5.js",
+    "runtime-main.js.map": "//jhjang92.github.io/ReactTodoList/static/js/runtime-main.ae8c98d5.js.map",
+    "static/js/2.a4beb8f9.chunk.js": "//jhjang92.github.io/ReactTodoList/static/js/2.a4beb8f9.chunk.js",
+    "static/js/2.a4beb8f9.chunk.js.map": "//jhjang92.github.io/ReactTodoList/static/js/2.a4beb8f9.chunk.js.map",
+    "index.html": "//jhjang92.github.io/ReactTodoList/index.html",
+    "precache-manifest.b0a6b2535bbcfb3cb832b9d6d946051e.js": "//jhjang92.github.io/ReactTodoList/precache-manifest.b0a6b2535bbcfb3cb832b9d6d946051e.js",
+    "service-worker.js": "//jhjang92.github.io/ReactTodoList/service-worker.js",
+    "static/css/main.5ecd60fb.chunk.css.map": "//jhjang92.github.io/ReactTodoList/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.a4beb8f9.chunk.js.LICENSE.txt": "//jhjang92.github.io/ReactTodoList/static/js/2.a4beb8f9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.8ae05d82.js",
-    "static/js/2.29de886d.chunk.js",
+    "static/js/runtime-main.ae8c98d5.js",
+    "static/js/2.a4beb8f9.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.aa27c520.chunk.js"
+    "static/js/main.95c81b45.chunk.js"
   ]
 }
