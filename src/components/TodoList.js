@@ -1,20 +1,8 @@
 import React from "react";
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import TodoItem from "./TodoItem";
 import { useTodoOpenState, useTodoState } from "./TodoContext";
 
-const fadeIn = keyframes`
-from {
-}
-to {
-}
-`;
-const fadeOut = keyframes`
-from {
-}
-to {
-}
-`;
 const TodoListArticle = styled.article`
   margin-left: 15px;
   text-align: center;
@@ -22,16 +10,6 @@ const TodoListArticle = styled.article`
   transition: 1.2s;
   overflow: auto;
   flex: 1;
-  animation-duration: 0.7s;
-  animation-timing-function: ease-out;
-  animation-name: ${fadeOut};
-  animation-fill-mode: forwards;
-
-  ${(props) =>
-    props.open &&
-    css`
-      animation-name: ${fadeIn};
-    `}
 
   h3 {
     width: 1px;
