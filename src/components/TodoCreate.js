@@ -96,7 +96,6 @@ const TodoCreateButton = styled.button`
 `;
 
 function TodoCreate() {
-  console.log("TodoCreate");
   const [open, setOpen] = useTodoOpenState();
   const [type, setType] = useTodoType();
   const [inputs, setInputs] = useTodoInputs();
